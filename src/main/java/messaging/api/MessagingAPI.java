@@ -36,7 +36,7 @@ public interface MessagingAPI {
      */
     @GET
     @Path("/{since}")
-    List<Message> getMessages(@PathParam("since") int since);
+    List<Message> getMessages(@PathParam("since") long since);
 
     @DELETE
     @Path("/")

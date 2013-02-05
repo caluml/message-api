@@ -8,7 +8,7 @@ public class Message {
 
     private boolean encrypted = false;
 
-    private int timestamp = (int) (System.currentTimeMillis() / 1000l);
+    private long timestamp = System.currentTimeMillis();
 
     private byte[] message;
 
@@ -49,7 +49,7 @@ public class Message {
         this.encrypted = encrypted;
     }
 
-    public int getTimestamp() {
+    public long getTimestamp() {
         return this.timestamp;
     }
 
@@ -57,7 +57,7 @@ public class Message {
         return this.message;
     }
 
-    public void setTimestamp(final int timestamp) {
+    public void setTimestamp(final long timestamp) {
         this.timestamp = timestamp;
     }
 
