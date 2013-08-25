@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import messaging.GetMessageRequest;
 import messaging.Message;
 import messaging.api.responses.PostMessageResponse;
 
@@ -23,35 +24,40 @@ import org.jboss.resteasy.annotations.cache.NoCache;
 @NoCache
 public interface MessagingAPI {
 
-    @GET
-    @Path("/")
-    @Produces("text/plain")
-    String getHelp();
+	@GET
+	@Path("/")
+	@Produces("text/plain")
+	String getHelp();
 
-    /**
-     * Gets all messages since the given time.
-     * 
-     * @param since
-     * @return a list of Message, or null if there aren't any, or there was a problem
-     */
-    @GET
-    @Path("/{since}")
-    List<Message> getMessages(@PathParam("since") long since);
+	/**
+	 * Gets all messages since the given time.
+	 * 
+	 * @param since
+	 * @return a list of Message, or null if there aren't any, or there was a problem
+	 */
+	@GET
+	@Path("/{since}")
+	@Deprecated
+	List<Message> getMessages(@PathParam("since") long since);
 
-    @DELETE
-    @Path("/")
-    Response clearMessages();
+	@POST
+	@Path("/get")
+	List<Message> getMessages(GetMessageRequest getMessageRequest);
 
-    @GET
-    @Path("/stats")
-    Response getStats();
+	@POST
+	@Path("/")
+	PostMessageResponse postMessage(Message message);
 
-    @GET
-    @Path("/announce")
-    Response announcePeer(@QueryParam("url") String url);
+	@DELETE
+	@Path("/")
+	Response clearMessages();
 
-    @POST
-    @Path("/")
-    PostMessageResponse postMessage(Message message);
+	@GET
+	@Path("/stats")
+	Response getStats();
+
+	@GET
+	@Path("/announce")
+	Response announcePeer(@QueryParam("url") String url);
 
 }
